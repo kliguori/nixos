@@ -1,39 +1,46 @@
-# Nix-config
+# NixOS
 
-## Systems
-- sherlock (desktop): 
-    * MSI ACE MEG x570
-    * Ryzen 9 3900X (12 core)
-    * Nvidia 2080Ti 
-    * 2x16 GB DDR4
-    * 500 GB nvme
-    * 500 GB nvme
-    * 1 TB SATA SSD 
-    * 1 TB HDD
-- watson (laptop): 
-    * Framework 13 
-    * Ryzen 5 7040 (6 core)
-    * 2x16 GB DDR5
-    * 1 TB nvme SSD
-- mycroft (laptop, server): 
-    * Dell XPS15 9500 
-    * i7 10750H (6 core)
-    * GTX 1650Ti
-    * 2x8 GB DDR4
-    * 500 GB nvme
-    * 4 TB nvme
-- lestrade (laptop): 
-    * Lenovo ThinkPad T14 Gen 1 
-    * Ryzen 7
-    * 16 GB (soldered) DDR4
-    * 1 open DDR4 slot
-- gregson (laptop): 
-    * Dell Latitude 15 
-    * i7 6700HQ
-    * 2x8 GB DDR3
-- moriarty (usb): 
-    * For install and recovery 
-    * X GB persistent storage
+## Sherlock
+Sherlock is my desktop and main system.
+- MSI ACE MEG x570
+- Ryzen 9 3900X (12 core)
+- Nvidia 2080Ti 
+- 2x16 GB DDR4
+- 500 GB nvme
+- 500 GB nvme
+- 1 TB SATA SSD 
+- 1 TB HDD
+
+## Watson
+Watson is my primary laptop.
+- Framework 13 
+- Ryzen 5 7040 (6 core)
+- 2x16 GB DDR5
+- 1 TB nvme SSD
+
+## Mycroft 
+Mycroft is my home server.
+- Dell XPS15 9500 
+- i7 10750H (6 core)
+- GTX 1650Ti
+- 2x8 GB DDR4
+- 500 GB nvme
+- 4 TB nvme
+
+## lestrade
+- Lenovo ThinkPad T14 Gen 1 
+- Ryzen 7
+- 16 GB (soldered) DDR4
+- 1 open DDR4 slot
+
+## gregson
+- Dell Latitude 15 
+- i7 6700HQ
+- 2x8 GB DDR3
+
+## moriarty
+- For install and recovery 
+- X GB persistent storage
 
 ## To do:
 - [ ] Paperless
