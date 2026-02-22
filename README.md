@@ -1,7 +1,7 @@
 # NixOS
 This repo contains my NixOS configurations for the below systems.
 
-## Sherlock - [x]
+## - [x] Sherlock
 Sherlock is my desktop and main system.
 - MSI ACE MEG x570
 - Ryzen 9 3900X (12 core)
