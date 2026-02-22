@@ -68,6 +68,7 @@ Moriarty is a persistent usb that I will use for install and recovery.
 - [ ] DMS config 
 - [ ] Lanzaboote
 - [ ] Expose some services?
+- [ ] fzf or ways to find zsh history
 - [ ] Re-evaluate terminal choice
 - [x] Vim motions in terminal
 - [x] Allow multiple profiles, look at redoing profiles

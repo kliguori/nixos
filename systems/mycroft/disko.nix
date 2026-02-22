@@ -93,6 +93,13 @@
                       "noatime"
                     ];
                   };
+                  "@paperless" = {
+                    mountpoint = "/data/paperless";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
                 };
               };
             };

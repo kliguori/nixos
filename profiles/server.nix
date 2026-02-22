@@ -18,10 +18,10 @@ in
           enable = lib.mkDefault true;
           dataDir = "/data/vaultwarden";
         };
-        # paperless = {
-        #   enable = lib.mkDefault true;
-        #   database.enable = lib.mkDefault true;
-        # };
+        paperless = {
+          enable = lib.mkDefault true;
+          dataDir = "/data/paperless";
+        };
       };
     };
   };

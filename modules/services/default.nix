@@ -8,7 +8,7 @@
     ./nginx
     ./vaultwarden
     ./jellyfin
-    # ./paperless
+    ./paperless
     ./postgreSQL
   ];
 }
