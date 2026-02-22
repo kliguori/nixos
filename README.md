@@ -1,7 +1,7 @@
 # NixOS
 This repo contains my NixOS configurations for the below systems.
 
-## Sherlock [x]
+## Sherlock - [x]
 Sherlock is my desktop and main system.
 - MSI ACE MEG x570
 - Ryzen 9 3900X (12 core)
@@ -12,14 +12,14 @@ Sherlock is my desktop and main system.
 - 1 TB SATA SSD 
 - 1 TB HDD
 
-## Watson [x]
+## Watson - [x]
 Watson is my primary laptop.
 - Framework 13 
 - Ryzen 5 7040 (6 core)
 - 2x16 GB DDR5
 - 1 TB nvme SSD
 
-## Mycroft [x]
+## Mycroft - [x]
 Mycroft is my home server.
 - Dell XPS15 9500 
 - i7 10750H (6 core)
@@ -28,21 +28,21 @@ Mycroft is my home server.
 - 500 GB nvme
 - 4 TB nvme
 
-## Lestrade [x]
+## Lestrade - [x]
 Lestrade is a (somewhat) usefull testbed for watson.
 - Lenovo ThinkPad T14 Gen 1 
 - Ryzen 7
 - 16 GB (soldered) DDR4
 - 1 open DDR4 slot
 
-## Gregson [ ]
+## Gregson - [ ]
 Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use for.
 - Dell Latitude 15 
 - i7 6700HQ
 - 2x8 GB DDR3
 - 256 GB SSD
 
-## Moriarty [ ]
+## Moriarty - [ ]
 Moriarty is a persistent usb that I will use for install and recovery.
 - X GB persistent storage
 
