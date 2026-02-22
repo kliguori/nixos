@@ -67,10 +67,12 @@ in
     services = {
       paperless = {
         enable = true;
-        manage = true;
         address = "127.0.0.1";
         port = 28981;
-
+        
+        user = "admin";
+        passwordFile = config.sops.secrets.paperlessAdminPassword.path;
+        
         dataDir = toString cfg.dataDir;
         mediaDir = "${toString cfg.dataDir}/media";
         consumptionDir = "${toString cfg.dataDir}/consume";
@@ -78,7 +80,6 @@ in
         database.createLocally = true;
 
         environmentFile = config.sops.templates.paperless-env.path;
-        passwordFile = config.sops.secrets.paperlessAdminPassword.path;
 
         settings = {
           PAPERLESS_URL = "https://${host}"; 
