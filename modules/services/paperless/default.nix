@@ -10,7 +10,7 @@ let
   dbName = "paperless";
   dbUser = "paperless";
 
-  sopsFile = ../../secrets/secrets.yaml;
+  sopsFile = ../../../secrets/secrets.yaml;
 in
 {
   options.systemOptions.services.paperless = {
