@@ -67,6 +67,7 @@ in
     services = {
       paperless = {
         enable = true;
+        manage = true;
         address = "127.0.0.1";
         port = 28981;
 
