@@ -3,10 +3,7 @@ let
   cfg = config.systemOptions.services.jellyfin;
   nginx = config.systemOptions.services.nginx;
   tls = config.systemOptions.tls;
-
-  nginxEnabled = nginx.enable;
-  tlsEnabled = tls.enable;
-
+  impermanence = config.systemOptions.impermanence;
   host = "jellyfin.${nginx.baseDomain}";
 in
 {
@@ -15,13 +12,17 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = nginxEnabled;
+        assertion = nginx.enable;
         message = "jellyfin.enable requires nginx.enable = true.";
       }
       {
-        assertion = tlsEnabled;
+        assertion = tls.enable;
         message = "jellyfin.enable requires tls.enable = true.";
       }
+    ];
+
+    environment.persistence."/persist".directories = lib.mkIf impermanence.enable [
+      "/var/lib/jellyfin"
     ];
 
     services = {
