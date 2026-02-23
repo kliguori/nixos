@@ -52,6 +52,10 @@
 
   # --- System options ---
   systemOptions = {
+    users = [
+      "root"
+      "kevin"
+    ];
     impermanence.enable = false;
     desktop.enable = true;    
     # services = {
