@@ -3,7 +3,7 @@ let
   cfg = config.systemOptions.programs.firefox;
 in
 {
-  options.systemOptions.programs.firefox = lib.mkEnableOption "Enable Firefox";
+  options.systemOptions.programs.firefox.enable = lib.mkEnableOption "Enable Firefox";
   config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
