@@ -1,12 +1,12 @@
 { ... }:
 {
   imports = [
-    ./programs/git
-    ./programs/zsh
-    ./programs/starship
-    ./programs/kitty
-    ./programs/nixvim
-    ./programs/dms
-    ./programs/niri
+    ./git
+    ./zsh
+    ./starship
+    ./kitty
+    ./nixvim
+    ./dms
+    ./niri
   ];
 }
