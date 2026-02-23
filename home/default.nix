@@ -13,9 +13,7 @@
     ./programs/nixvim
     ./programs/dms
     ./programs/niri
-    # ./programs/wofi
-    # ./programs/ashell
-    # ./programs/hyprland
+    ./programs/firefox
   ];
 
   # Theme options used by multiple programs
