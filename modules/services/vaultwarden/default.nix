@@ -6,16 +6,12 @@
 let
   cfg = config.systemOptions.services.vaultwarden;
   nginx = config.systemOptions.services.nginx;
-  pg = config.systemOptions.services.postgresql;
   tls = config.systemOptions.tls;
 
   tlsEnabled = tls.enable;
   nginxEnabled = nginx.enable;
-  pgEnabled = pg.enable;
 
   host = "vault.${nginx.baseDomain}";
-  dbName = "vaultwarden";
-  dbUser = "vaultwarden";
 in
 {
   options.systemOptions.services.vaultwarden = {
@@ -36,10 +32,6 @@ in
 
   config = lib.mkIf cfg.enable {
     assertions = [
-      {
-        assertion = pgEnabled;
-        message = "vaultwarden.enable requires postgresql.enable = true.";
-      }
       {
         assertion = nginxEnabled;
         message = "vaultwarden.enable requires nginx.enable = true.";
@@ -63,32 +55,21 @@ in
     services = {
       vaultwarden = {
         enable = true;
-        dbBackend = "postgresql";
         config = {
           ROCKET_ADDRESS = "127.0.0.1";
           DATA_FOLDER = toString cfg.dataDir;
           ROCKET_PORT = 8222;
           WEBSOCKET_ENABLED = true;
           SIGNUPS_ALLOWED = cfg.signupsAllowed;
-          DATABASE_URL = "postgresql://${dbUser}@/${dbName}?host=/run/postgresql";
+          EXTENDED_LOGGING = true;
+          LOG_LEVEL = "warn";
           DOMAIN = "https://${host}";
         };
-      };
-
-      postgresql = {
-        ensureDatabases = [ dbName ];
-        ensureUsers = [
-          {
-            name = dbUser;
-            ensureDBOwnership = true;
-          }
-        ];
       };
 
       nginx.virtualHosts."${host}" = {
         useACMEHost = nginx.baseDomain;
         forceSSL = true;
-
         locations."/" = {
           proxyPass = "http://127.0.0.1:8222";
           proxyWebsockets = true;

@@ -75,7 +75,6 @@ Moriarty is a persistent usb that I will use for install and recovery.
 - [x] Make impermanence the default
 - [x] Vaultwarden
 - [x] Add tls to domain name
-- [x] Fix postgreSQL
 - [x] SOPS-Nix
 - [x] Make sure disko can add BTRFS subvols without being destructive
 - [x] Get dms running on login

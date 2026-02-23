@@ -79,13 +79,6 @@
                   };
 
                   # --- Service data ---
-                  "@postgresql" = {
-                    mountpoint = "/data/postgresql";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
                   "@vaultwarden" = {
                     mountpoint = "/data/vaultwarden";
                     mountOptions = [
