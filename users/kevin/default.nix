@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -29,4 +30,10 @@ lib.mkIf enabled {
     hashedPasswordFile = config.sops.secrets.kevinPassword.path;
     openssh.authorizedKeys.keys = [ ];
   };
+
+  home-manager.users.kevin.imports = [
+    inputs.nixvim.homeModules.nixvim
+    inputs.dms.homeModules.dank-material-shell
+    ./home.nix
+  ];
 }
