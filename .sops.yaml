@@ -1,10 +1,11 @@
 keys:
   # Machines
+  - &sherlock age1z9aq4kx54p250ehhl3skcqx325g7nw3w9umrm3uudqqc6k236scsqrkjhv
   - &lestrade age1ahxg9264t6e0x9e5wdt68wvqj2r8vrguyjfv5wapy06w99nhuv8spefrng
   - &mycroft age1dn86qnhnwcmnm8h7g97v5svk6geru75ll8vhpxtayskvm8vv7dhss6q077
 
   # Groups
-  - &all_recipients [*lestrade, *mycroft]
+  - &all_recipients [*sherlock, *lestrade, *mycroft]
 
 creation_rules:
   - path_regex: '^secrets/secrets\.ya?ml$'

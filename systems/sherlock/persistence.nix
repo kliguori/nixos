@@ -14,6 +14,7 @@
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
+      "/var/lib/sops-nix"
 
       # Network
       "/etc/NetworkManager/system-connections"
