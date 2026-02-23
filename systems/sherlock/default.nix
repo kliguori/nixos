@@ -52,7 +52,7 @@
 
   # --- System options ---
   systemOptions = {
-    # impermanence.enable = true;
+    impermanence.enable = false;
     desktop.enable = true;    
     # services = {
     #   ssh.enable = true;
