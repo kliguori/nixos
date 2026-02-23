@@ -5,7 +5,7 @@ let
   pg = config.systemOptions.services.postgresql;
   tls = config.systemOptions.tls;
   host = "paperless.${nginx.baseDomain}";
-  sopsFile = ../../secrets/secrets.yaml;
+  sopsFile = ../../../secrets/secrets.yaml;
 in
 {
   options.systemOptions.services.paperless = {
