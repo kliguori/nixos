@@ -13,7 +13,6 @@
     ./programs/nixvim
     ./programs/dms
     ./programs/niri
-    ./programs/firefox
   ];
 
   # Theme options used by multiple programs

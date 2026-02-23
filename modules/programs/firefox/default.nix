@@ -1,7 +1,11 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.systemOptions.programs.firefox;
+in
 {
-  programs = {
-    firefox = {
+  options.systemOptions.programs.firefox = lib.mkEnableOption "Enable Firefox";
+  config = lib.mkIf cfg.enable {
+    programs.firefox = {
       enable = true;
       policies = {
         DisableTelemetry = true;
