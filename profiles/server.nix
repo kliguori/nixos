@@ -12,6 +12,7 @@ in
         jellyfin.enable = lib.mkDefault true;
         vaultwarden = {
           enable = lib.mkDefault true;
+          signupsAllowed = true;
           dataDir = "/data/vaultwarden";
         };
         paperless = {
