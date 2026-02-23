@@ -95,7 +95,6 @@ in
         consumptionDir = "${toString cfg.dataDir}/consume";
         consumptionDirIsPublic = true;
         database.createLocally = false;
-        environmentFile = config.sops.templates.paperless-env.path;
         passwordFile = config.sops.secrets.paperlessAdminPassword.path;
         settings = {
           PAPERLESS_URL = "https://${host}";
