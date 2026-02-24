@@ -48,7 +48,9 @@ Moriarty is a persistent usb that I will use for install and recovery.
 
 ## To do:
 - [ ] Paperless
+- [ ] Scanner/samba
 - [ ] Nextcloud
+- [ ] Monitoring
 - [ ] Remote access to network tailscale (headscale), netbird, wireguard, cloudflare tunnels, Unifi vpn?
 - [ ] Set up outgoing vpn.
 - [ ] Miniflux
