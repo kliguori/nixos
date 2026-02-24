@@ -33,11 +33,11 @@
     supportedFilesystems = [ "zfs" ];
     initrd.supportedFilesystems = [ "zfs" ];
     zfs.devNodes = "/dev/disk/by-id";
-    zfs.extraPools = [
-      "rpool"
-      "dpool"
-      "spool"
-    ];
+    # zfs.extraPools = [
+    #   "rpool"
+    #   "dpool"
+    #   "spool"
+    # ];
   };
 
   # --- FileSystems ---
