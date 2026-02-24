@@ -4,25 +4,6 @@
   lib,
   ...
 }:
-let
-  mkNoMountOptions =
-    {
-      automount, # ture -> automounts dataset when accessed. false -> must mount manually
-      idleTimeout ? 60,
-      deviceTimeout ? "15s",
-      mountTimeout ? "15s",
-    }:
-    [
-      "nofail"
-      "noauto"
-      "x-systemd.device-timeout=${deviceTimeout}"
-      "x-systemd.mount-timeout=${mountTimeout}"
-    ]
-    ++ lib.optionals automount [
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=${toString idleTimeout}"
-    ];
-in
 {
   # --- Imports ---
   imports = [
@@ -64,20 +45,42 @@ in
   };
 
   # --- Extra fileSystems ---
-  fileSystems."/home" = {
-    device = "rpool/home";
-    fsType = "zfs";
-  };
+  fileSystems =
+    let
+      mkNoMountOptions =
+        {
+          automount, # ture -> automounts dataset when accessed. false -> must mount manually
+          idleTimeout ? 60,
+          deviceTimeout ? "15s",
+          mountTimeout ? "15s",
+        }:
+        [
+          "nofail"
+          "noauto"
+          "x-systemd.device-timeout=${deviceTimeout}"
+          "x-systemd.mount-timeout=${mountTimeout}"
+        ]
+        ++ lib.optionals automount [
+          "x-systemd.automount"
+          "x-systemd.idle-timeout=${toString idleTimeout}"
+        ];
+    in
+    {
+      "/home" = {
+        device = "rpool/home";
+        fsType = "zfs";
+      };
 
-  fileSystems."/data" = {
-    device = "dpool/data";
-    fsType = "zfs";
-    options = mkNoMountOptions { automount = true; };
-  };
+      "data" = {
+        device = "dpool/data";
+        fsType = "zfs";
+        options = mkNoMountOptions { automount = true; };
+      };
 
-  filesystems."/data/scratch" = {
-    device = "spool/scratch";
-    fsType = "zfs";
-    options = mkNoMountOptions { automount = true; };
-  };
+      "data/scratch" = {
+        device = "spool/scratch";
+        fsType = "zfs";
+        options = mkNoMountOptions { automount = true; };
+      };
+    };
 }
