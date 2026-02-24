@@ -4,7 +4,6 @@ let
   nginx = config.systemOptions.services.nginx;
   tls = config.systemOptions.tls;
   host = "paperless.${nginx.baseDomain}";
-  sopsFile = ../../../secrets/secrets.yaml;
 in
 {
   options.systemOptions.services.paperless = {
@@ -29,14 +28,6 @@ in
       }
     ];
 
-    sops.secrets.paperlessAdminPassword = {
-      inherit sopsFile;
-      key = "apps/paperless/adminPassword";
-      owner = "root";
-      group = "root";
-      mode = "0400";
-    };
-
     services = {
       paperless = {
         enable = true;
@@ -46,7 +37,7 @@ in
         mediaDir = "${toString cfg.dataDir}/media";
         consumptionDir = "${toString cfg.dataDir}/consume";
         consumptionDirIsPublic = true;
-        passwordFile = config.sops.secrets.paperlessAdminPassword.path;
+        passwordFile = "/persist/secrets/paperless/password.txt";
         settings = {
           PAPERLESS_URL = "https://${host}";
           PAPERLESS_CONSUMER_RECURSIVE = true;

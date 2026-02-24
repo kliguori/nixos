@@ -7,18 +7,8 @@
 }:
 let
   enabled = lib.elem "kevin" config.systemOptions.users;
-  # sopsFile = ../../secrets/secrets.yaml;
 in
 lib.mkIf enabled {
-    #  sops.secrets.kevinPassword = {
-    # inherit sopsFile;
-    # neededForUsers = true;
-    # key = "users/kevin/hashedPassword";
-    # owner = "root";
-    # group = "root";
-    # mode = "0400";
-    # };
-
   users.users.kevin = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -28,7 +18,6 @@ lib.mkIf enabled {
       "networkmanager"
     ];
     hashedPassword = "$6$UZmN9CmJmm2mYMVc$Ia3O4psbyXfjM59NEbZY5PBfy.IxIA8yta9F9hYOJ4MVuuFwyrRB1E0uysmG5f8Q1mfZjzlLJ0sES1RQymCUt.";
-    # hashedPasswordFile = config.sops.secrets.kevinPassword.path;
     openssh.authorizedKeys.keys = [ ];
   };
 

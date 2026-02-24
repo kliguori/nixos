@@ -22,10 +22,6 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "unstable";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -65,7 +61,6 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.disko.nixosModules.disko
             inputs.dms.nixosModules.greeter
-            inputs.sops-nix.nixosModules.sops
             homeManagerModule
             diskoModule
             ./overlays

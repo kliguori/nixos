@@ -2,7 +2,6 @@
 {
   imports = [
     ./impermanence
-    ./sops
     ./desktop
     ./programs
     ./services

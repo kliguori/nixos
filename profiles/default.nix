@@ -61,6 +61,9 @@
 
     # --- Boot settings ---
     boot = {
+      kernelParams = [
+        "zfs.zfs_arc_max=4294967296" # Limit ZFS ARC to 4GB
+      ];
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
@@ -109,7 +112,6 @@
       usbutils
       lm_sensors
       fwupd
-      sops
       age
     ];
   };

@@ -1,6 +1,6 @@
 {
-  inputs,
   hostName,
+  inputs,
   pkgs,
   ...
 }:
@@ -46,6 +46,7 @@
 
   # --- System options ---
   systemOptions = {
+    impermanence.includeHomeDir = false;
     users = [
       "root"
       "admin"
@@ -53,9 +54,8 @@
     ];
     profiles = [
       "laptop"
-      "server"
+      # "server"
     ];
-    desktop.enable = true;
     nvidia = {
       enable = true;
       prime = {
@@ -63,6 +63,40 @@
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
+    };
+  };
+
+  # --- Extra zpools to import early ---
+  boot.zfs = {
+    requestEncryptionCredentials = true;
+    extraPools = [ "dpool" ];
+  };
+
+  # --- Extra fileSystems ---
+  fileSystems = {
+    "/media/movies" = {
+      device = "dpool/crypt/media/movies";
+      fsType = "zfs";
+    };
+
+    "/media/tv" = {
+      device = "dpool/crypt/media/tv";
+      fsType = "zfs";
+    };
+
+    "/data/vaultwarden" = {
+      device = "dpool/crypt/data/vaultwarden";
+      fsType = "zfs";
+    };
+
+    "/data/paperless" = {
+      device = "dpool/crypt/data/paperless";
+      fsType = "zfs";
+    };
+
+    "/incus" = {
+      device = "dpool/crypt/incus";
+      fsType = "zfs";
     };
   };
 }

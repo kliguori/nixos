@@ -16,6 +16,12 @@ in
       description = "Optional tmpfs size";
     };
 
+    includeHomeDir = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Include home directory from rpool? If home is on a different pool -> false";
+    };
+
     rpool = lib.mkOption {
       type = lib.types.str;
       default = "rpool";
@@ -63,6 +69,11 @@ in
       device = "${cfg.rpool}/persist";
       fsType = "zfs";
       neededForBoot = true;
+    };
+
+    fileSystems."/home" = lib.mkIf cfg.includeHomeDir {
+      device = "${cfg.rpool}/home";
+      fsType = "zfs";
     };
 
     environment.persistence."/persist" = {

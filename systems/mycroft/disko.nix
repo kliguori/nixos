@@ -7,6 +7,7 @@
         type = "gpt";
         partitions = {
           ESP = {
+            name = "ESP";
             size = "1G";
             type = "EF00";
             content = {
@@ -14,33 +15,16 @@
               format = "vfat";
               mountpoint = "/boot";
               mountOptions = [ "umask=0077" ];
+              extraArgs = [ "-n" "NIXBOOT" ];
             };
           };
-          crypt = {
+
+          rpool = {
+            name = "rpool";
             size = "100%";
             content = {
-              type = "luks";
-              name = "cryptroot";
-              content = {
-                type = "btrfs";
-                extraArgs = [ "-f" ];
-                subvolumes = {
-                  "@nix" = {
-                    mountpoint = "/nix";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "@persist" = {
-                    mountpoint = "/persist";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                };
-              };
+              type = "zfs";
+              pool = "rpool";
             };
           };
         };
@@ -53,49 +37,125 @@
       content = {
         type = "gpt";
         partitions = {
-          crypt = {
+          dpool = {
+            name = "dpool";
             size = "100%";
             content = {
-              type = "luks";
-              name = "cryptdata";
-              content = {
-                type = "btrfs";
-                extraArgs = [ "-f" ];
-                subvolumes = {
-                  # --- Media ---
-                  "@movies" = {
-                    mountpoint = "/media/movies";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "@tv" = {
-                    mountpoint = "/media/tv";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-
-                  # --- Service data ---
-                  "@vaultwarden" = {
-                    mountpoint = "/data/vaultwarden";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "@paperless" = {
-                    mountpoint = "/data/paperless";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                };
-              };
+              type = "zfs";
+              pool = "dpool";
             };
+          };
+        };
+      };
+    };
+  };
+
+  zpool = {
+    rpool = {
+      type = "zpool";
+      options = {
+        ashift = "12";
+        autotrim = "on";
+      };
+
+      rootFsOptions = {
+        mountpoint = "none";
+        compression = "zstd";
+        atime = "off";
+        xattr = "sa";
+        acltype = "posixacl";
+      };
+
+      datasets = {
+        nix = {
+          type = "zfs_fs";
+          mountpoint = "/nix";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        persist = {
+          type = "zfs_fs";
+          mountpoint = "/persist";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+      };
+    };
+
+    dpool = {
+      type = "zpool";
+      options = {
+        ashift = "12";
+        autotrim = "on";
+      };
+
+      rootFsOptions = {
+        mountpoint = "none";
+        compression = "zstd";
+        atime = "off";
+        xattr = "sa";
+        acltype = "posixacl";
+      };
+
+      datasets = {
+        crypt = {
+          type = "zfs_fs";
+          options = {
+            mountpoint = "none";
+            canmount = "off";
+            encryption = "aes-256-gcm";
+            keyformat = "passphrase";
+            keylocation = "prompt";
+          };
+        };
+
+        "crypt/media/movies" = {
+          type = "zfs_fs";
+          mountpoint = "/media/movies";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/media/tv" = {
+          type = "zfs_fs";
+          mountpoint = "/media/tv";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/vaultwarden" = {
+          type = "zfs_fs";
+          mountpoint = "/data/vaultwarden";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/paperless" = {
+          type = "zfs_fs";
+          mountpoint = "/data/paperless";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/incus" = {
+          type = "zfs_fs";
+          mountpoint = "/incus";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
           };
         };
       };
