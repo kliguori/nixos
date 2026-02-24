@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  paperless = config.systemOptions.paperless;
+  paperless = config.systemOptions.services.paperless;
 in
 {
   services.samba = {
