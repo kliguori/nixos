@@ -77,7 +77,7 @@
         sherlock = mkSystem "sherlock" "x86_64-linux";
         # watson = mkSystem "watson" "x86_64-linux";
         mycroft = mkSystem "mycroft" "x86_64-linux";
-        lestrade = mkSystem "lestrade" "x86_64-linux";
+        # lestrade = mkSystem "lestrade" "x86_64-linux";
       };
 
     };
