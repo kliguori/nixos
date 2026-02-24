@@ -28,6 +28,11 @@ in
       }
     ];
 
+    # make all files added to /paperless/consume owned by paperless
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir}/consume 2775 paperless paperless - -"
+    ];
+
     services = {
       paperless = {
         enable = true;
