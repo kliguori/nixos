@@ -50,6 +50,7 @@
       "root"
       "admin"
       "kevin"
+      "printer"
     ];
     profiles = [
       "laptop"
@@ -64,12 +65,6 @@
       };
     };
   };
-
-  # --- Extra zpools to import early ---
-  # boot.zfs = {
-  #   requestEncryptionCredentials = true;
-  #   extraPools = [ "dpool" ];
-  # };
 
   # --- Extra fileSystems ---
   fileSystems = {
@@ -90,16 +85,6 @@
 
     "/data/paperless" = {
       device = "dpool/crypt/data/paperless";
-      fsType = "zfs";
-    };
-
-    "/data/paperless/media" = {
-      device = "dpool/crypt/data/paperless/media";
-      fsType = "zfs";
-    };
-
-    "/data/paperless/consume" = {
-      device = "dpool/crypt/data/paperless/consume";
       fsType = "zfs";
     };
 

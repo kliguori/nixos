@@ -10,5 +10,6 @@
     ./root
     ./admin
     ./kevin
+    ./printer
   ];
 }

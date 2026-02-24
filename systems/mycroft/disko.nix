@@ -150,24 +150,6 @@
           };
         };
 
-        "crypt/data/paperless/media" = {
-          type = "zfs_fs";
-          mountpoint = "/data/paperless/media";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
-        };
-
-        "crypt/data/paperless/consume" = {
-          type = "zfs_fs";
-          mountpoint = "/data/paperless/consume";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
-        };
-
         "crypt/incus" = {
           type = "zfs_fs";
           mountpoint = "/incus";

@@ -9,5 +9,6 @@
     ./vaultwarden
     ./jellyfin
     ./paperless
+    ./samba
   ];
 }
