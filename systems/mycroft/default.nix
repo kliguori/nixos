@@ -93,6 +93,16 @@
       fsType = "zfs";
     };
 
+    "/data/paperless/media" = {
+      device = "dpool/crypt/data/paperless/media";
+      fsType = "zfs";
+    };
+
+    "/data/paperless/consume" = {
+      device = "dpool/crypt/data/paperless/consume";
+      fsType = "zfs";
+    };
+
     "/incus" = {
       device = "dpool/crypt/incus";
       fsType = "zfs";
