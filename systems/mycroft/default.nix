@@ -67,10 +67,10 @@
   };
 
   # --- Extra zpools to import early ---
-  boot.zfs = {
-    requestEncryptionCredentials = true;
-    extraPools = [ "dpool" ];
-  };
+  # boot.zfs = {
+  #   requestEncryptionCredentials = true;
+  #   extraPools = [ "dpool" ];
+  # };
 
   # --- Extra fileSystems ---
   fileSystems = {
