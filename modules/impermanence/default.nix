@@ -15,38 +15,60 @@ in
       default = "8G";
       description = "Optional tmpfs size";
     };
-  };
 
-  config = lib.mkIf cfg.enable {
-    fileSystems = {
-      "/" = {
-        device = "tmpfs";
-        fsType = "tmpfs";
-        options = [
-          "mode=0755"
-          "size=${cfg.rootTmpfsSize}"
-        ];
-      };
-      "/nix".neededForBoot = true;
-      "/persist".neededForBoot = true;
+    rpool = lib.mkOption {
+      type = lib.types.str;
+      default = "rpool";
+      description = "Name of the required boot pool that contains /nix and /persist.";
     };
 
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        "/etc/nixos"
+    systemDirs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
         "/etc/NetworkManager/system-connections"
+        "/etc/nixos"
         "/var/log"
         "/var/lib/nixos"
         "/var/lib/systemd"
       ];
+      description = "System directories to persist";
+    };
 
-      files = [
+    systemFiles = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
         "/etc/machine-id"
+      ];
+      description = "System files to persist";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    fileSystems."/" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "mode=0755"
+        "size=${cfg.rootTmpfsSize}"
       ];
     };
 
-    # Required for impermanence
-    programs.fuse.userAllowOther = true;
+    fileSystems."/nix" = {
+      device = "${cfg.rpool}/nix";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+
+    fileSystems."/persist" = {
+      device = "${cfg.rpool}/persist";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+
+    environment.persistence."/persist" = {
+      hideMounts = true;
+      directories = cfg.systemDirs;
+      files = cfg.systemFiles;
+    };
   };
 }

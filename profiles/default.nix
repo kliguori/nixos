@@ -61,15 +61,13 @@
 
     # --- Boot settings ---
     boot = {
-      kernelParams = [ ];
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
-      supportedFilesystems = [
-        "btrfs"
-        "zfs"
-      ];
+      supportedFilesystems = [ "zfs" ];
+      initrd.supportedFilesystems = [ "zfs" ];
+      zfs.devNodes = "/dev/disk/by-id";
     };
 
     # --- Hardware ---
