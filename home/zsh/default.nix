@@ -35,7 +35,7 @@
       vi = "nvim";
 
       # nixos
-      nrs = "sudo nixos-rebuild switch --flake ~/nix-config#${hostName}";
+      nrs = "sudo nixos-rebuild switch --flake ~/nixos#${hostName}";
     };
   };
 }
