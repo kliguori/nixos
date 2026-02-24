@@ -46,7 +46,6 @@
 
   # --- System options ---
   systemOptions = {
-    impermanence.includeHomeDir = false;
     users = [
       "root"
       "admin"
@@ -54,7 +53,7 @@
     ];
     profiles = [
       "laptop"
-      # "server"
+      "server"
     ];
     nvidia = {
       enable = true;

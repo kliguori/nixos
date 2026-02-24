@@ -8,7 +8,7 @@ in
       "consoleblank=300" # Turn off screen after 5 minutes
     ];
     systemOptions = {
-      desktop.enable = lib.mkForce false;
+      # desktop.enable = lib.mkForce false;
       impermanence.includeHomeDir = false;
       tls.enable = true;
       services = {
