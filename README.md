@@ -85,7 +85,7 @@ Moriarty is a persistent usb that I will use for install and recovery.
 
 ## About installing
 After booting into the installer and connecting to the internet
-1. run "echo -n <hostId> >> /etc/hostId" -- this prevents any non-root zpools from not importing due to different hostIds in installer and on the new system. If you don't do this, some pools might not import, and this could block the boot. If boot is blocked, drop into recovery and force import the pools. After rebooting, zpools should import fine as they are now set to the hostId.
+1. run "echo -n \<hostId\> >> /etc/hostId" -- this prevents any non-root zpools from not importing due to different hostIds in installer and on the new system. If you don't do this, some pools might not import, and this could block the boot. If boot is blocked, drop into recovery and force import the pools. After rebooting, zpools should import fine as they are now set to the hostId.
 2. run "sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake github:kliguori#<hostName>" -- this formates the disks and mounts them under /mnt ready to be installed. THIS IS DESTRUCTIVE.
 3. At this point, you can generate password files in the /persist folder with 
 "mkpasswd -m yescrypt > /persist/secrets/<userName>/password.txt".
