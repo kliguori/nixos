@@ -43,9 +43,9 @@ in
     ];
 
     systemd = {
-      # services.vaultwarden.serviceConfig.ReadWritePaths = [
-      #   (toString cfg.dataDir)
-      # ];
+      services.vaultwarden.serviceConfig.ReadWritePaths = [
+        (toString cfg.dataDir)
+      ];
       tmpfiles.rules = [
         "d ${toString cfg.dataDir} 0750 vaultwarden vaultwarden -"
       ];
