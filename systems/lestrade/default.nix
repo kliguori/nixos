@@ -24,10 +24,11 @@
       "root"
       "kevin"
     ];
+    impermanence.rpool = "rpool/crypt";
     profiles = [ "laptop" ];
     hibernate = {
       enable = true;
-      resumeDevice = "/dev/vg/swap";
+      resumeDevice = "/dev/mapper/cryptswap";
     };
   };
 }

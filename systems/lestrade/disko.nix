@@ -6,6 +6,7 @@
       type = "gpt";
       partitions = {
         ESP = {
+          name = "ESP";
           size = "1G";
           type = "EF00";
           content = {
@@ -13,54 +14,87 @@
             format = "vfat";
             mountpoint = "/boot";
             mountOptions = [ "umask=0077" ];
+            extraArgs = [ "-n" "NIXBOOT" ];
           };
         };
 
-        crypt = {
-          size = "100%";
+        swap = {
+          name = "swap";
+          size = "40G";
+          type = "8200";
           content = {
             type = "luks";
-            name = "cryptroot";
+            name = "cryptswap";
             content = {
-              type = "lvm_pv";
-              vg = "vg";
+              type = "swap";
+              resumeDevice = true;
             };
+          };
+        };
+
+        rpool = {
+          name = "rpool";
+          size = "100%";
+          content = {
+            type = "zfs";
+            pool = "rpool";
           };
         };
       };
     };
   };
 
-  lvm_vg."vg" = {
-    type = "lvm_vg";
-    lvs = {
-      swap = {
-        size = "40G"; 
-        content = {
-          type = "swap";
-          resumeDevice = true;
+  zpool.rpool = {
+    type = "zpool";
+    options = {
+      ashift = "12";
+      autotrim = "on";
+    };
+
+    rootFsOptions = {
+      mountpoint = "none";
+      compression = "zstd";
+      atime = "off";
+      xattr = "sa";
+      acltype = "posixacl";
+    };
+
+    datasets = {
+      crypt = {
+        type = "zfs_fs";
+        options = {
+          mountpoint = "none";
+          canmount = "off";
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "prompt";
         };
       };
 
-      root = {
-        size = "100%FREE";
-        content = {
-          type = "btrfs";
-          extraArgs = [ "-f" ];
-          subvolumes = {
-            "@nix" = {
-              mountpoint = "/nix";
-              mountOptions = [ "compress=zstd" "noatime" ];
-            };
-            "@home" = {
-              mountpoint = "/home";
-              mountOptions = [ "compress=zstd" "noatime" ];
-            };
-            "@persist" = {
-              mountpoint = "/persist";
-              mountOptions = [ "compress=zstd" "noatime" ];
-            };
-          };
+      "crypt/nix" = {
+        type = "zfs_fs";
+        mountpoint = "/nix";
+        options = {
+          canmount = "noauto";
+          mountpoint = "legacy";
+        };
+      };
+
+      "crypt/persist" = {
+        type = "zfs_fs";
+        mountpoint = "/persist";
+        options = {
+          canmount = "noauto";
+          mountpoint = "legacy";
+        };
+      };
+
+      "crypt/home" = {
+        type = "zfs_fs";
+        mountpoint = "/home";
+        options = {
+          canmount = "noauto";
+          mountpoint = "legacy";
         };
       };
     };
