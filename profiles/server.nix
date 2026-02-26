@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.systemOptions;
 in
@@ -7,6 +7,7 @@ in
     boot.kernelParams = [ 
       "consoleblank=300" # Turn off screen after 5 minutes
     ];
+
     systemOptions = {
       desktop.enable = lib.mkForce false;
       impermanence.includeHomeDir = false;
@@ -26,5 +27,10 @@ in
         };
       };
     };
+
+    environment.systemPackages = with pkgs; [ 
+      ncurses
+      kitty.terminfo
+    ];
   };
 }
