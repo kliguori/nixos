@@ -43,7 +43,10 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 - 256 GB SSD
 
 ## To do:
-- [x] Get lestrade back on zfs
+- [ ] PostgreSQL
+- [ ] Redis
+- [ ] Nextcloud
+- [ ] Sort out a scanner for paperless
 - [ ] HAOS VM
 - [ ] Jet KVM
 - [ ] DMS config 
@@ -54,9 +57,7 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 - [ ] Uptime Kuma
 - [ ] Prometheus
 - [ ] Graphana
-- [ ] Sort out a scanner for paperless
 - [ ] Set up outgoing vpn
-- [ ] Nextcloud
 - [ ] Audiobookshelf
 - [ ] Immich
 - [ ] ACME resolver still pointing to cloudflare... maybe change
@@ -68,6 +69,7 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 - [ ] fzf or ways to find zsh history
 - [ ] Automate install proceedure
 - [ ] Re-evaluate terminal choice
+- [x] Get lestrade back on zfs
 - [x] Remove all traces of darwin from home manager configs
 - [x] Finish making sherlock config dendritic, re-evaluate disk configs and impermanence model
 - [x] Firefox config including ad blocking
@@ -88,9 +90,15 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 
 ## About installing
 After booting into the installer and connecting to the internet
-1. run "echo 0x\<hostId\> | sudo tee /sys/module/spl/parameters/spl_hostid" -- this prevents any non-root zpools from not importing due to different hostIds in installer and on the new system. If you don't do this, some pools might not import, and this could block the boot. If boot is blocked, drop into recovery and force import the pools. After rebooting, zpools should import fine as they are now set to the hostId.
-2. run "sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake github:kliguori#\<hostName\>" -- this formates the disks and mounts them under /mnt ready to be installed. THIS IS DESTRUCTIVE.
-3. At this point, you can generate password files after you make the folder "/mnt/persist/secrets/users/\<userName\>". Use "mkpasswd -m yescrypt | sudo tee /mnt/persist/secrets/users/\<userName\>/password.txt > /dev/null". After that, chmod the password file to 0600.
-4. run "sudo nixos-install --flake github:kliguori#\<hostName\> --root /mnt --no-write-lock-file --no-root-password". This installs the system.
-
-If you find you need to run disko or nixos-install again with a fresh tarball, use the option "--option tarball-ttl 0".
+1. echo 0x\<hostId\> | sudo tee /sys/module/spl/parameters/spl_hostid
+    - This sets the hostid for the install media to the hostid for the system you're building, at least according to zfs. Doing this prevents any non-root zpools from not importing due to different hostIds in installer and on the new system. If you don't do this, some pools might not import, and this could block the boot. If boot is blocked, drop into recovery and force import the pools. After rebooting, zpools should import fine as they are now set to the hostId.
+2. sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake github:kliguori#\<hostName\>
+    - THIS IS DESTRUCTIVE. This formats the disks and mounts them under /mnt ready to be installed.
+3. sudo mkdir -p /mnt/persist/secrets/users/\<userName\> 
+    - This point creates the directory to store \<userName\>'s password. 
+4. mkpasswd -m yescrypt | sudo tee /mnt/persist/secrets/users/\<userName\>/password.txt > /dev/null 
+    - Generates password file containing the hashed password. 
+5. sudo chmod 0600 /mnt/persist/secrets/users/\<userName\>/password.txt
+    - Make the password and writeable by root only.
+6. sudo nixos-install --flake github:kliguori#\<hostName\> --root /mnt --no-write-lock-file --no-root-password --option tarball-ttl 0
+    - This downloads fresh tarball of the config and installs the system.
