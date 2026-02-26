@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./laptop.nix
@@ -84,35 +89,40 @@
     i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
     # --- Packages ---
-    environment.systemPackages = with pkgs; [
-      tree
-      pciutils
-      unzip
-      neovim
-      curl
-      wget
-      eza
-      jq
-      dnsutils
-      iproute2
-      iputils
-      nmap
-      traceroute
-      htop
-      strace
-      lsof
-      ripgrep
-      fd
-      bat
-      duf
-      ncdu
-      rsync
-      parted
-      git
-      usbutils
-      lm_sensors
-      fwupd
-      age
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        tree
+        pciutils
+        unzip
+        neovim
+        curl
+        wget
+        eza
+        jq
+        dnsutils
+        iproute2
+        iputils
+        nmap
+        traceroute
+        htop
+        strace
+        lsof
+        ripgrep
+        fd
+        bat
+        duf
+        ncdu
+        rsync
+        parted
+        git
+        usbutils
+        lm_sensors
+        fwupd
+        age
+      ]
+      ++ [
+        inputs.disko.packages.${pkgs.system}.disko
+      ];
   };
 }
