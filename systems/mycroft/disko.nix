@@ -74,7 +74,7 @@
           type = "zfs_fs";
           mountpoint = "/nix";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -83,7 +83,7 @@
           type = "zfs_fs";
           mountpoint = "/persist";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -121,7 +121,7 @@
           type = "zfs_fs";
           mountpoint = "/media/movies";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -130,7 +130,7 @@
           type = "zfs_fs";
           mountpoint = "/media/tv";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -139,7 +139,7 @@
           type = "zfs_fs";
           mountpoint = "/data/postgresql";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -148,7 +148,7 @@
           type = "zfs_fs";
           mountpoint = "/data/nextcloud";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -157,7 +157,7 @@
           type = "zfs_fs";
           mountpoint = "/data/nextcloud/data";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -166,7 +166,7 @@
           type = "zfs_fs";
           mountpoint = "/data/vaultwarden";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -175,7 +175,7 @@
           type = "zfs_fs";
           mountpoint = "/data/paperless";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
@@ -184,7 +184,7 @@
           type = "zfs_fs";
           mountpoint = "/incus";
           options = {
-            canmount = "on";
+            canmount = "noauto";
             mountpoint = "legacy";
           };
         };
