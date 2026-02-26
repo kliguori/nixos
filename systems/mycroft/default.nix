@@ -49,7 +49,6 @@
     users = [
       "root"
       "admin"
-      "kevin"
       "printer"
     ];
     profiles = [
@@ -75,6 +74,21 @@
 
     "/media/tv" = {
       device = "dpool/crypt/media/tv";
+      fsType = "zfs";
+    };
+
+    "/data/postgresql" = {
+      device = "dpool/crypt/data/postgresql";
+      fsType = "zfs";
+    };
+
+    "/data/nextcloud" = {
+      device = "dpool/crypt/data/nextcloud";
+      fsType = "zfs";
+    };
+
+    "/data/nextcloud/data" = {
+      device = "dpool/crypt/data/nextcloud/data";
       fsType = "zfs";
     };
 

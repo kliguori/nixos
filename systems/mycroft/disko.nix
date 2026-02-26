@@ -15,7 +15,10 @@
               format = "vfat";
               mountpoint = "/boot";
               mountOptions = [ "umask=0077" ];
-              extraArgs = [ "-n" "NIXBOOT" ];
+              extraArgs = [
+                "-n"
+                "NIXBOOT"
+              ];
             };
           };
 
@@ -70,19 +73,13 @@
         nix = {
           type = "zfs_fs";
           mountpoint = "/nix";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
 
         persist = {
           type = "zfs_fs";
           mountpoint = "/persist";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
       };
     };
@@ -117,46 +114,49 @@
         "crypt/media/movies" = {
           type = "zfs_fs";
           mountpoint = "/media/movies";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
 
         "crypt/media/tv" = {
           type = "zfs_fs";
           mountpoint = "/media/tv";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
+        };
+
+        "crypt/data/postgresql" = {
+          type = "zfs_fs";
+          mountpoint = "/data/postgresql";
+          options.mountpoint = "legacy";
+        };
+
+        "crypt/data/nextcloud" = {
+          type = "zfs_fs";
+          mountpoint = "/data/nextcloud";
+          options.mountpoint = "legacy";
+        };
+
+        "crypt/data/nextcloud/data" = {
+          type = "zfs_fs";
+          mountpoint = "/data/nextcloud/data";
+          options.mountpoint = "legacy";
         };
 
         "crypt/data/vaultwarden" = {
           type = "zfs_fs";
           mountpoint = "/data/vaultwarden";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
 
         "crypt/data/paperless" = {
           type = "zfs_fs";
           mountpoint = "/data/paperless";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
 
         "crypt/incus" = {
           type = "zfs_fs";
           mountpoint = "/incus";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
+          options.mountpoint = "legacy";
         };
       };
     };
