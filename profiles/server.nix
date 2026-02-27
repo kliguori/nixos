@@ -21,9 +21,9 @@ in
         samba.enable = true;
         nginx.enable = true;
         jellyfin.enable = true;
-        postgresel = {
+        postgresql = {
           enable = true;
-          dataDir = "/data/postgresel";
+          dataDir = "/data/postgresql";
         };
         nextcloud = {
           enable = true;
