@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.systemOptions;
 in
 {
   config = lib.mkIf (lib.elem "server" cfg.profiles) {
-    boot.kernelParams = [ 
+    boot.kernelParams = [
       "consoleblank=300" # Turn off screen after 5 minutes
     ];
 
@@ -16,6 +21,15 @@ in
         samba.enable = true;
         nginx.enable = true;
         jellyfin.enable = true;
+        postgresel = {
+          enable = true;
+          dataDir = "/data/postgresel";
+        };
+        nextcloud = {
+          enable = true;
+          homeDir = "/data/nextcloud";
+          dataDir = "/data/nextcloud/data";
+        };
         vaultwarden = {
           enable = true;
           signupsAllowed = true;
@@ -28,7 +42,7 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [ 
+    environment.systemPackages = with pkgs; [
       ncurses
       kitty.terminfo
     ];

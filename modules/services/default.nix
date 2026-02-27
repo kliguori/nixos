@@ -10,5 +10,7 @@
     ./jellyfin
     ./paperless
     ./samba
+    ./postgresql
+    ./nextcloud
   ];
 }

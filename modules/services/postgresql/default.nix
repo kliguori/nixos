@@ -1,13 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.systemOptions.services.postgresql;
-  mkReqType = lib.types.submodule ({ ... }: {
-    options = {
-      name = lib.mkOption { type = lib.types.str; description = "Database name"; };
-      user = lib.mkOption { type = lib.types.str; description = "Role/user name"; };
-      passFile = lib.mkOption { type = lib.types.path; description = "Password file for the role"; };
-    };
-  });
+  mkReqType = lib.types.submodule (
+    { ... }:
+    {
+      options = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          description = "Database name";
+        };
+        user = lib.mkOption {
+          type = lib.types.str;
+          description = "Role/user name";
+        };
+      };
+    }
+  );
 in
 {
   options.systemOptions.services.postgresql = {
@@ -15,25 +27,35 @@ in
 
     requests = lib.mkOption {
       type = lib.types.listOf mkReqType;
-      default = [];
+      default = [ ];
       description = "Databases/roles requested by services.";
+    };
+
+    dataDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/postgresql";
+      description = "PostgreSQL data directory";
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-      package = cfg.package;
       enableTCPIP = false;
+      dataDir = cfg.dataDir;
       ensureDatabases = lib.unique (map (r: r.name) cfg.requests);
       ensureUsers =
         let
-          mkUser = r: {
-            name = r.user;
-            ensureDBOwnership = true;
-          };
+          uniqueUsers = lib.unique (map (r: r.user) cfg.requests);
         in
-        lib.unique (map mkUser cfg.requests);
+        map (u: {
+          name = u;
+          ensureDBOwnership = true;
+        }) uniqueUsers;
+
+      authentication = lib.mkOverride 10 ''
+        local all all peer
+      '';
 
       settings = {
         shared_buffers = "256MB";
@@ -41,24 +63,6 @@ in
         maintenance_work_mem = "128MB";
         max_connections = 100;
       };
-    };
-
-    # Set passwords from passFile for each requested role.
-    # This avoids manual psql steps.
-    systemd.services.postgresql-postStart = {
-      after = [ "postgresql.service" ];
-      requires = [ "postgresql.service" ];
-      serviceConfig.Type = "oneshot";
-      script =
-        let
-          mkCmd = r: ''
-            pw="$(cat ${toString r.passFile})"
-            ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/psql \
-              -tAc "ALTER ROLE \"${r.user}\" WITH PASSWORD '$pw';"
-          '';
-        in
-        lib.concatStringsSep "\n" (map mkCmd cfg.requests);
-      wantedBy = [ "multi-user.target" ];
     };
   };
 }

@@ -12,60 +12,10 @@ let
         description = "Unix socket path for this Redis instance.";
       };
 
-      socketPerm = lib.mkOption {
-        type = lib.types.str;
-        default = "0770";
-        description = "Permissions for the unix socket (octal string).";
-      };
-
-      user = lib.mkOption {
-        type = lib.types.str;
-        default = "redis";
-        description = "Unix user to run Redis as.";
-      };
-
-      group = lib.mkOption {
-        type = lib.types.str;
-        default = "redis-${name}";
-        description = "Unix group owning the socket; grant clients access by joining this group.";
-      };
-
-      # Default: socket-only, no TCP.
-      port = lib.mkOption {
-        type = lib.types.ints.between 0 65535;
-        default = 0;
-        description = "TCP port. 0 disables TCP and uses unix socket only.";
-      };
-
-      bind = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ "127.0.0.1" "::1" ];
-        description = "Bind addresses (only relevant if port != 0).";
-      };
-
-      requirePassFile = lib.mkOption {
-        type = lib.types.nullOr lib.types.path;
-        default = null;
-        description = "Optional password file (recommended if TCP is enabled).";
-      };
-
-      # Extra redis.conf settings (key/value), e.g. maxmemory-policy, etc.
       settings = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
         default = { };
         description = "Extra Redis settings (redis.conf entries).";
-      };
-
-      harden = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Apply systemd hardening to the redis service unit.";
-      };
-
-      allowTCP = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Allow listening on TCP (you must explicitly opt in).";
       };
     };
   });
@@ -74,29 +24,17 @@ let
 
   mkRedisServer = name: inst: {
     enable = true;
-    user = inst.user;
-    group = inst.group;
+    port = 0;
+    unixSocket = inst.socketPath;
+    unixSocketPerm = 0755;
 
-    # Socket-only by default
-    port = inst.port;
-    bind = inst.bind;
-
-    unixSocket = toString inst.socketPath;
-    unixSocketPerm = inst.socketPerm;
-
-    # Keep the safer default on; Redis “protected mode” is a key safety net
-    # if someone ever accidentally enables TCP without auth.
     settings =
       {
         "protected-mode" = "yes";
-        # Good hygiene; your apps can still set their own policies.
         "timeout" = "0";
         "tcp-keepalive" = "300";
       }
       // inst.settings;
-
-    # Optional auth (mainly useful if TCP is on)
-    requirePassFile = inst.requirePassFile;
   };
 
   unitName = name: if name == "" then "redis" else "redis-${name}";
