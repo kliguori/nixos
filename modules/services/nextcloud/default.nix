@@ -65,6 +65,19 @@ in
         datadir = cfg.dataDir;
         maxUploadSize = "16G";
         caching.apcu = true;
+        extraAppsEnable = true;
+        extraApps = with config.services.nextcloud.package.packages.apps; {
+          inherit
+            calendar
+            contacts
+            mail
+            notes
+            tasks
+            gpoddersync
+            uppush
+            ;
+        };
+        
         config = {
           dbtype = "pgsql";
           dbname = "nextcloud";
