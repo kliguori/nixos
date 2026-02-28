@@ -6,7 +6,7 @@ let
   pgsql = config.systemOptions.services.postgresql;
 
   host = "nextcloud.${nginx.baseDomain}";
-  secretsDir = "/persist/secrets/apps/nextcloud";
+  adminPasswordFile = "/persist/secrets/nextcloud/adminpassFile";
 in
 {
   options.systemOptions.services.nextcloud = {
@@ -65,7 +65,7 @@ in
           dbuser = "nextcloud";
           dbhost = "/run/postgresql";
           adminuser = "admin";
-          adminpassFile = "${secretsDir}/adminpassFile";
+          adminpassFile = adminPasswordFile;
         };
 
         settings = {
