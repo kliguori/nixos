@@ -44,6 +44,18 @@
     };
   };
 
+  # --- Allow closed lid and screen off ---
+
+  boot.kernelParams = [
+    "consoleblank=300" # Turn off screen after 5 minutes
+  ];
+
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore"; 
+    lidSwitchDocked = "ignore"; 
+  };
+
   # --- System options ---
   systemOptions = {
     users = [

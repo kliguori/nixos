@@ -9,10 +9,6 @@ let
 in
 {
   config = lib.mkIf (lib.elem "server" cfg.profiles) {
-    boot.kernelParams = [
-      "consoleblank=300" # Turn off screen after 5 minutes
-    ];
-
     systemOptions = {
       desktop.enable = lib.mkForce false;
       impermanence.includeHomeDir = false;
