@@ -45,15 +45,14 @@
   };
 
   # --- Allow closed lid and screen off ---
-
   boot.kernelParams = [
     "consoleblank=300" # Turn off screen after 5 minutes
   ];
 
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore"; 
-    lidSwitchDocked = "ignore"; 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore"; 
+    HandleLidSwitchDocked = "ignore"; 
   };
 
   # --- System options ---
