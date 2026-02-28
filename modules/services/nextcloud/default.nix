@@ -49,6 +49,12 @@ in
       }
     ];
 
+    systemd.tmpfiles.rules = [
+      "d ${toString cfg.homeDir} 0750 nextcloud nextcloud - -"
+      "d ${toString cfg.dataDir} 0750 nextcloud nextcloud - -"
+      "d ${toString cfg.dataDir}/config 0750 nextcloud nextcloud - -"
+    ];
+
     services = {
       nextcloud = {
         enable = true;

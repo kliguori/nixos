@@ -39,6 +39,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d ${toString cfg.dataDir} 0700 postgres postgres - -"
+    ];
+
     services.postgresql = {
       enable = true;
       enableTCPIP = false;
