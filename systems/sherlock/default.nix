@@ -45,11 +45,13 @@
     "/data" = {
       device = "dpool/data";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
     "/data/scratch" = {
       device = "spool/scratch";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
   };
 }
