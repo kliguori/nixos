@@ -42,15 +42,14 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 - 2x8 GB DDR3
 - 256 GB SSD
 
+## Adler 
+Adler is a raspberry pi zero 2 w which is used as the controller for my printer/scanner.
+
 ## To do:
-- [ ] PostgreSQL
-- [ ] Redis
-- [ ] Nextcloud
 - [ ] Sort out a scanner for paperless
 - [ ] HAOS VM
 - [ ] Jet KVM
 - [ ] DMS config 
-- [ ] Refactor mkSystem to a lib folder
 - [ ] Lanzaboote
 - [ ] Miniflux
 - [ ] Monitoring
@@ -69,6 +68,9 @@ Gregson is a (mostly) useless old gaming laptop that I don't yet have a good use
 - [ ] fzf or ways to find zsh history
 - [ ] Automate install proceedure
 - [ ] Re-evaluate terminal choice
+- [x] Refactor mkSystem to a lib folder
+- [x] PostgreSQL
+- [x] Nextcloud
 - [x] Get lestrade back on zfs
 - [x] Remove all traces of darwin from home manager configs
 - [x] Finish making sherlock config dendritic, re-evaluate disk configs and impermanence model
@@ -102,3 +104,9 @@ After booting into the installer and connecting to the internet
     - Make the password and writeable by root only.
 6. sudo nixos-install --flake github:kliguori#\<hostName\> --root /mnt --no-write-lock-file --no-root-password --option tarball-ttl 0
     - This downloads fresh tarball of the config and installs the system.
+
+## About building RPi images 
+Raspberry Pi images are build on sherlock and cross-compiled from x86 to aarch.
+1. Somethings about this are impure. For example:
+    - having to pass wifi ssid and password as env vars. 
+    - allowing missing packages in the closure.
