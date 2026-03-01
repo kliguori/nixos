@@ -35,9 +35,10 @@ in
       };
     };
 
-    environment.systemPackages = [
-      pkgs.age
-      pkgs.sops
+    environment.systemPackages = with pkgs; [
+      age
+      ssh-to-age
+      sops
     ];
   };
 }
