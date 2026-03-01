@@ -26,12 +26,13 @@
   config = {
     # --- System options
     systemOptions = {
-      desktop.enable = lib.mkDefault true;
+      desktop.enable = true;
+      sops.enable = true;
       services = {
-        ssh.enable = lib.mkDefault true;
-        fstrim.enable = lib.mkDefault true;
-        tailscale.enable = lib.mkDefault true;
-        powerManagement.enable = lib.mkDefault true;
+        ssh.enable = true;
+        fstrim.enable = true;
+        tailscale.enable = true;
+        powerManagement.enable = true;
       };
     };
 

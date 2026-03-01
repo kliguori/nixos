@@ -27,6 +27,7 @@ nixpkgs.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
     inputs.disko.nixosModules.disko
     inputs.dms.nixosModules.greeter
+    inputs.sops-nix.nixosModules.sops
     homeManagerModule
     diskoModule
     ../overlays

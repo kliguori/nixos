@@ -8,5 +8,6 @@
     ./hibernate
     ./nvidia
     ./tls
+    ./sops
   ];
 }

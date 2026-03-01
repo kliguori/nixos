@@ -1,0 +1,17 @@
+keys:
+  # Master key
+  - &master age14f52erggp44g0g83eqy96r9rrqwasx4xzku2khuun7nj0uwhgqzsgx8g70
+
+  # x86 keys
+  - &sherlock age1f7puxlrr0vg4g25y0de92fl9g6kdpxe63fw6n0pstu5uaj3h2yys00rp8g
+
+  # Raspberry Pi keys
+  - &adler age1an8sfk7u4hydcsjmpg0ugc77lq3wv03f8j5jdet66dvtq5d4f9ssdjlztl
+
+creation_rules:
+  - path_regex: ^secrets\.yaml$
+    key_groups:
+      - age:
+          - *master
+          - *sherlock
+          - *adler
