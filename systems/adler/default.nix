@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = [
     ../../users
@@ -63,13 +68,16 @@
     swraid.enable = lib.mkForce false;
   };
 
+  config.sops.secrets."networking/wifi/home/psk" = { };
+
   networking = {
     hostName = "adler";
     interfaces."wlan0".useDHCP = true;
     wireless = {
       enable = true;
       interfaces = [ "wlan0" ];
-      networks."${builtins.getEnv "WIFI_SSID"}".psk = builtins.getEnv "WIFI_PSK"; # pass ssid and psk as env vars
+      secretsFile = config.sops.secrets."networking/wifi/home/psk".path;
+      networks."WiFiShack-Home".psk = "ext:WIFI_PSK";
     };
   };
 

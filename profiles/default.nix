@@ -24,7 +24,7 @@
   };
 
   config = {
-    # --- System options
+    # --- System options ---
     systemOptions = {
       desktop.enable = true;
       sops = { 
@@ -123,7 +123,6 @@
         usbutils
         lm_sensors
         fwupd
-        age
       ]
       ++ [
         inputs.disko.packages.${pkgs.system}.disko
