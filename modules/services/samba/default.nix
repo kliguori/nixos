@@ -14,7 +14,12 @@ in
   options.systemOptions.services.samba.enable = lib.mkEnableOption "Turn on samba shares";
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 445 ];
-    
+    systemd.tmpfiles.rules = [
+      "d /var/log/samba 0755 root root - -"
+      "d /var/lib/samba 0755 root root - -"
+      "d /var/lib/samba/private 0700 root root - -"
+    ];
+
     services.samba = {
       enable = true;
       openFirewall = false;
@@ -24,7 +29,7 @@ in
           global = {
             "security" = "user";
             "map to guest" = "never";
-            
+
             # Protocols
             "server min protocol" = "SMB2";
             "server max protocol" = "SMB3";
@@ -38,7 +43,7 @@ in
             "logging" = "file";
             "log file" = "/var/log/samba/log.%m";
             "max log size" = "5000";
-            
+
             # Some defaults for zfs
             "ea support" = "yes";
             "vfs objects" = "acl_xattr";
