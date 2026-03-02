@@ -29,6 +29,8 @@ in
 
     # --- Extra Packages ---
     environment.systemPackages = with pkgs; [
+      hplip
+      sane-frontends
       samba
     ];
   };
