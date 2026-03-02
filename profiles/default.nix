@@ -27,7 +27,10 @@
     # --- System options
     systemOptions = {
       desktop.enable = true;
-      sops.enable = true;
+      sops = { 
+        enable = true;
+        secretsFile = "../secrets.yaml";
+      };
       services = {
         ssh.enable = true;
         fstrim.enable = true;

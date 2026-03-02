@@ -9,6 +9,8 @@ let
   enabled = lib.elem "kevin" config.systemOptions.users;
 in
 lib.mkIf enabled {
+  sops.secrets."users/kevin/password".neededForUsers = true;
+
   users.users.kevin = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -17,8 +19,7 @@ lib.mkIf enabled {
       "wheel"
       "networkmanager"
     ];
-      hashedPasswordFile = "/persist/secrets/users/kevin/password.txt";
-      # hashedPassword = "$6$UZmN9CmJmm2mYMVc$Ia3O4psbyXfjM59NEbZY5PBfy.IxIA8yta9F9hYOJ4MVuuFwyrRB1E0uysmG5f8Q1mfZjzlLJ0sES1RQymCUt.";
+    hashedPasswordFile = config.sops.secrets."users/kevin/password".path;
     openssh.authorizedKeys.keys = [ ];
   };
 
