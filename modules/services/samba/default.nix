@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.systemOptions.services.samba;
+  impermanence = config.systemOptions.impermanence;
   paperless = config.systemOptions.services.paperless;
 
   allowedNets = [
@@ -13,7 +14,7 @@ in
   options.systemOptions.services.samba.enable = lib.mkEnableOption "Turn on samba shares";
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 445 ];
-
+    
     services.samba = {
       enable = true;
       openFirewall = false;
@@ -59,5 +60,9 @@ in
         })
       ];
     };
+
+    environment.persistence."/persist".directories = lib.mkIf impermanence.enable [
+      "/var/lib/samba"
+    ];
   };
 }
