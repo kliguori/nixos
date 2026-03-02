@@ -30,7 +30,7 @@ in
     sops = {
       defaultSopsFile = cfg.secretsFile;
       age = {
-        sshKeyPaths = lib.mkIf (cfg.ageKeyFile == null) [ "/etc/ssh/ssh_host_ed25519_key" ];
+        sshKeyPaths = lib.mkIf (cfg.ageKeyFile == null) [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
         keyFile = lib.mkIf (cfg.ageKeyFile != null) cfg.ageKeyFile;
       };
     };
