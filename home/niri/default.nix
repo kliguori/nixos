@@ -24,8 +24,8 @@
     }
     
     // Monitors 
-    outputs {
-      "HDMI-A-1" { transform "90" }
+    output "HDMI-A-1" {
+      transform "270"
     }
    
     // Layouts
