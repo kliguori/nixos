@@ -22,7 +22,7 @@ in
       extraBackends = [ pkgs.hplip ];
     };
 
-    users.users.yourUsername.extraGroups = [
+    users.users.kevin.extraGroups = [
       "lp"
       "scanner"
     ];
