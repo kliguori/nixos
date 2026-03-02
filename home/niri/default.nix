@@ -24,11 +24,8 @@
     }
     
     // Monitors 
-    /-output "eDP-1" {
-      mode "1920x1080@120.030"
-      scale 2
-      transform "normal"
-      // position x=... y=...   // only needed with multiple monitors
+    outputs {
+      "HDMI-A-1" { transform "90" }
     }
    
     // Layouts
