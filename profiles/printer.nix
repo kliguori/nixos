@@ -10,9 +10,21 @@ in
 {
   config = lib.mkIf (lib.elem "printer" cfg.profiles) {
     # --- Services ---
-    services.printing = {
-      enable = true; # CUPS
-      drivers = [ pkgs.hplip ];
+    services = {
+      printing = {
+        enable = true; # CUPS
+        drivers = [ pkgs.hplip ];
+      };
+
+      avahi = {
+        enable = true;
+        nssmdns4 = false;
+        openFirewall = false;
+        publish = {
+          enable = false;
+          userServices = false;
+        };
+      };
     };
 
     hardware.sane = {
