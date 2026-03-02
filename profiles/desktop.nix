@@ -31,10 +31,9 @@ in
       virt-manager
       virt-viewer
       qemu
-
-      # Transcoding
       makemkv
       handbrake
+      samba
     ];
   };
 }
