@@ -29,7 +29,10 @@
 
   # --- System options ---
   systemOptions = {
-    profiles = [ "desktop" ];
+    profiles = [
+      "desktop"
+      "printer"
+    ];
     users = [
       "root"
       "kevin"

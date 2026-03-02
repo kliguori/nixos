@@ -9,6 +9,7 @@
     ./laptop.nix
     ./desktop.nix
     ./server.nix
+    ./printer.nix
   ];
 
   options.systemOptions.profiles = lib.mkOption {
@@ -17,6 +18,7 @@
         "laptop"
         "desktop"
         "server"
+        "printer"
       ]
     );
     default = [ ];

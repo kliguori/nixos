@@ -24,9 +24,10 @@
 
       # git
       gs = "git status";
-      ga = "git add";
-      gc = "git commit";
+      ga = "git add .";
+      gc = "git commit -m";
       gp = "git push";
+      gf = "git fetch";
       gl = "git pull";
       gd = "git diff";
       gco = "git checkout";
