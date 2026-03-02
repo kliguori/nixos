@@ -14,7 +14,7 @@ in
       impermanence.includeHomeDir = false;
       tls.enable = true;
       services = {
-        samba.enable = true;
+        samba.enable = false;
         nginx.enable = true;
         jellyfin.enable = true;
         postgresql = {
