@@ -29,7 +29,7 @@
       desktop.enable = true;
       sops = { 
         enable = true;
-        secretsFile = "../secrets.yaml";
+        secretsFile = ../secrets.yaml;
       };
       services = {
         ssh.enable = true;

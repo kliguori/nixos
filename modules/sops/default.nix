@@ -21,7 +21,7 @@ in
     };
 
     secretsFile = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.path;
       description = "Path to the encrypted secrets.yaml for this host.";
     };
   };
