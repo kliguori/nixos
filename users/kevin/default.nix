@@ -18,6 +18,8 @@ lib.mkIf enabled {
     extraGroups = [
       "wheel"
       "networkmanager"
+      "lp"
+      "scanner"
     ];
     hashedPasswordFile = config.sops.secrets."users/kevin/password".path;
     openssh.authorizedKeys.keys = [ ];
