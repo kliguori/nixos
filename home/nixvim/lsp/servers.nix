@@ -12,7 +12,10 @@
           };
         };
       };
-      hls.enable = true;
+      hls = {
+        enable = true;
+        installGhc = false;
+      };
       pyright.enable = true;
       clangd.enable = true;
       texlab.enable = true;
