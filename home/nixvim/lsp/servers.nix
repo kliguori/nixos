@@ -12,6 +12,7 @@
           };
         };
       };
+      hls.enable = true;
       pyright.enable = true;
       clangd.enable = true;
       texlab.enable = true;

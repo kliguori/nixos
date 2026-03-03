@@ -8,6 +8,7 @@
     };
     grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       nix
+      haskell
       python
       rust
       julia
