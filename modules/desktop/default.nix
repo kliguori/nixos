@@ -23,6 +23,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
+        chromium
         android-tools
         bitwarden-desktop
         kitty
