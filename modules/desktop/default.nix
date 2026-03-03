@@ -12,6 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     systemOptions.programs.firefox.enable = true;
     programs = {
+      chromium.enable = true;
       niri.enable = true;
       thunar.enable = true;
       dank-material-shell.greeter = {
@@ -22,6 +23,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
+        android-tools
         bitwarden-desktop
         kitty
         alacritty
