@@ -86,7 +86,6 @@
         (with hsPkgs; [
           ghc
           cabal-install
-          haskell-language-server
           ghcid
           hlint
           ormolu
@@ -101,6 +100,7 @@
 
           # Language servers and formatters
           nixd
+          haskell-language-server
           nixfmt
           pyright
           black
