@@ -4,6 +4,7 @@ keys:
 
   # x86 keys
   - &sherlock age1f7puxlrr0vg4g25y0de92fl9g6kdpxe63fw6n0pstu5uaj3h2yys00rp8g
+  - &lestrade age150qvwwe7wtx6a0rn5shvuxhrrhtyecegug62vwa2xswrynmd9udq30cypk
 
   # Raspberry Pi keys
   - &adler age1an8sfk7u4hydcsjmpg0ugc77lq3wv03f8j5jdet66dvtq5d4f9ssdjlztl
@@ -17,5 +18,6 @@ creation_rules:
       - age:
           - *master
           - *sherlock
+          - *lestrade
           - *adler
           - *kevin
