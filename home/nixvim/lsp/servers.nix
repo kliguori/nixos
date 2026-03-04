@@ -12,6 +12,11 @@
           };
         };
       };
+      rust-analyzer = {
+        enable = true;
+        installCargo = false;
+        installRustc = false;
+      };
       hls = {
         enable = true;
         installGhc = false;
