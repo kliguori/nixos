@@ -79,28 +79,40 @@
       homeDirectory = "/home/kevin";
       stateVersion = "25.11";
 
-      packages = with pkgs; [
-        signal-desktop
-        spotify
-        claude-code
+      packages =
+        let
+          hsPkgs = pkgs.haskell.packages.ghc98;
+        in
+        (with hsPkgs; [
+          ghc
+          cabal-install
+          haskell-language-server
+          ghcid
+          hlint
+          ormolu
+        ])
+        ++ (with pkgs; [
+          signal-desktop
+          spotify
+          claude-code
 
-        # Fonts
-        nerd-fonts.jetbrains-mono
+          # Fonts
+          nerd-fonts.jetbrains-mono
 
-        # Language servers and formatters
-        nixd
-        nixfmt
-        pyright
-        black
-        ruff
-        julia-bin
-        clang-tools
-        texlab
+          # Language servers and formatters
+          nixd
+          nixfmt
+          pyright
+          black
+          ruff
+          julia-bin
+          clang-tools
+          texlab
 
-        # Clipboard
-        wl-clipboard
-        xclip
-      ];
+          # Clipboard
+          wl-clipboard
+          xclip
+        ]);
     };
   };
 }
