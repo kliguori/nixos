@@ -12,6 +12,14 @@
           };
         };
       };
+      gopls = {
+        enable = true;
+        settings = {
+          gopls = {
+            gofumpt = true; # use gofumpt as formatter
+          };
+        };
+      };
       rust-analyzer = {
         enable = true;
         installCargo = false;
