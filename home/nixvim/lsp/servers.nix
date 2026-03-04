@@ -12,23 +12,7 @@
           };
         };
       };
-      gopls = {
-        enable = true;
-        settings = {
-          gopls = {
-            gofumpt = true; # use gofumpt as formatter
-          };
-        };
-      };
-      rust-analyzer = {
-        enable = true;
-        installCargo = false;
-        installRustc = false;
-      };
-      hls = {
-        enable = true;
-        installGhc = false;
-      };
+      hls.enable = true;
       pyright.enable = true;
       clangd.enable = true;
       texlab.enable = true;
