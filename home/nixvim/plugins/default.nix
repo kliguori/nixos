@@ -6,5 +6,6 @@
     ./treesitter.nix
     ./completion.nix
     ./neotree.nix
+    ./conform.nix
   ];
 }
