@@ -102,6 +102,11 @@
           nixd
           haskell-language-server
           nixfmt
+          rustc
+          cargo
+          rust-analyzer
+          rustfmt
+          clippy
           pyright
           black
           ruff

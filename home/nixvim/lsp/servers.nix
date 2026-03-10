@@ -12,7 +12,22 @@
           };
         };
       };
-      hls.enable = true;
+      rust_analyzer = {
+        enable = true;
+        installCargo = false;
+        installRustc = false;
+        settings = {
+          rust-analyzer = {
+            checkOnSave = true;
+            check.command = "clippy";
+            inlayHints = {
+              bindingModeHints.enable = true;
+              closureReturnTypeHints.enable = "always";
+              lifetimeElisionHints.enable = "always";
+            };
+          };
+        };
+      };
       pyright.enable = true;
       clangd.enable = true;
       texlab.enable = true;

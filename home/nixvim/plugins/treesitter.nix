@@ -8,11 +8,8 @@
     };
     grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       nix
-      go
-      haskell
       python
       rust
-      julia
       c
       lua
       bash
