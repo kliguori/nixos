@@ -1,5 +1,5 @@
 {
-  description = "NixOS System Configurations";
+  description = "One flake to rule them all, one flake to define them, one flake to build them all, and in the darkness apply them";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";

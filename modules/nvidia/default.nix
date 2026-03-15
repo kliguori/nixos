@@ -34,6 +34,8 @@ in
         message = "systemOptions.nvidia.prime.nvidiaBusId must be set when PRIME is enabled";
       }
     ];
+    
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
       graphics.enable = true;

@@ -14,7 +14,7 @@ in
       blueman.enable = false; # Disable Blueman service
       pulseaudio.enable = false; # Disable pulseaudio
       zfs.autoScrub.enable = true; # Enable automatic scrubbing of ZFS pools
-
+      
       # Enable pipewire
       pipewire = {
         enable = true;

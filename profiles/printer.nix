@@ -16,14 +16,16 @@ in
         drivers = [ pkgs.hplip ];
       };
 
+      ipp-usb.enable = true;
+
       avahi = {
         enable = true;
         nssmdns4 = false;
         openFirewall = false;
-        publish = {
-          enable = false;
-          userServices = false;
-        };
+        # publish = {
+        #   enable = false;
+        #   userServices = false;
+        # };
       };
     };
 
