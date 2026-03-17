@@ -3,13 +3,10 @@ keys:
   - &master age14f52erggp44g0g83eqy96r9rrqwasx4xzku2khuun7nj0uwhgqzsgx8g70
 
   # x86 keys
-  - &sherlock age1f7puxlrr0vg4g25y0de92fl9g6kdpxe63fw6n0pstu5uaj3h2yys00rp8g
-  - &lestrade age150qvwwe7wtx6a0rn5shvuxhrrhtyecegug62vwa2xswrynmd9udq30cypk
+  - &mycroft age1f7puxlrr0vg4g25y0de92fl9g6kdpxe63fw6n0pstu5uaj3h2yys00rp8g
+  - &watson age150qvwwe7wtx6a0rn5shvuxhrrhtyecegug62vwa2xswrynmd9udq30cypk
 
-  # Raspberry Pi keys
-  - &adler age1an8sfk7u4hydcsjmpg0ugc77lq3wv03f8j5jdet66dvtq5d4f9ssdjlztl
-
-  # My sherlock key
+  # My mycroft key
   - &kevin age164swfhc5rgsjazjlcg8lxxd832f4tq80tvurr9rld43dlp54ad0shuaeh3
 
 creation_rules:
@@ -17,7 +14,6 @@ creation_rules:
     key_groups:
       - age:
           - *master
-          - *sherlock
-          - *lestrade
-          - *adler
+          - *mycroft
+          - *watson
           - *kevin
