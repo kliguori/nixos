@@ -18,6 +18,7 @@ lib.mkIf enabled {
     extraGroups = [
       "wheel"
       "networkmanager"
+      "docker"
       "lp"
       "scanner"
     ];

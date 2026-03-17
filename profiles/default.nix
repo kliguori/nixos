@@ -125,6 +125,7 @@
         usbutils
         lm_sensors
         fwupd
+        flashrom
       ]
       ++ [
         inputs.disko.packages.${pkgs.system}.disko

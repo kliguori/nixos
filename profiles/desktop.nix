@@ -14,7 +14,7 @@ in
       blueman.enable = false; # Disable Blueman service
       pulseaudio.enable = false; # Disable pulseaudio
       zfs.autoScrub.enable = true; # Enable automatic scrubbing of ZFS pools
-      
+
       # Enable pipewire
       pipewire = {
         enable = true;
@@ -22,6 +22,13 @@ in
         alsa.support32Bit = true;
         pulse.enable = true;
         jack.enable = true;
+      };
+    };
+
+    virtualisation.docker = {
+      enable = true;
+      daemon.settings = {
+        data-root = "/home/kevin/.docker-data";
       };
     };
 
