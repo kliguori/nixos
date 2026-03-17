@@ -32,7 +32,6 @@
     inputs@{ nixpkgs, ... }:
     let
       mkSystem = import ./lib/mkSystem.nix inputs;
-      mkPiZero = import ./lib/mkPiZero.nix inputs;
     in
     {
       formatter = {
@@ -40,11 +39,9 @@
       };
 
       nixosConfigurations = {
-        sherlock = mkSystem "sherlock" "x86_64-linux";
-        lestrade = mkSystem "lestrade" "x86_64-linux";
         mycroft = mkSystem "mycroft" "x86_64-linux";
-        # watson = mkSystem "watson" "x86_64-linux";
-        # Adler = mkPiZero "adler" "x86_64-linux"; # the x86 is the build machine system
+        # sherlock = mkSystem "sherlock" "x86_64-linux";
+        watson = mkSystem "watson" "x86_64-linux";
       };
     };
 }
