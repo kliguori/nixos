@@ -2,7 +2,7 @@
   disk = {
     system = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-SAMSUNG_MZVLB512HBJQ-000L7_S4ENNX1R291121";
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_500GB_S5H7NG0N214175Z";
       content = {
         type = "gpt";
         partitions = {
@@ -36,7 +36,7 @@
 
     data = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-Micron_2300_NVMe_512GB__202829753D71";
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_4TB_S7U8NJ0Y622750V";
       content = {
         type = "gpt";
         partitions = {
@@ -46,24 +46,6 @@
             content = {
               type = "zfs";
               pool = "dpool";
-            };
-          };
-        };
-      };
-    };
-
-    scratch = {
-      type = "disk";
-      device = "/dev/disk/by-id/ata-WDC_WD10EZEX-22MFCA0_WD-WCC6Y2YL5RAD";
-      content = {
-        type = "gpt";
-        partitions = {
-          spool = {
-            name = "spool";
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "spool";
             };
           };
         };
@@ -90,6 +72,7 @@
       datasets = {
         nix = {
           type = "zfs_fs";
+          mountpoint = "/nix";
           options = {
             canmount = "noauto";
             mountpoint = "legacy";
@@ -98,14 +81,7 @@
 
         persist = {
           type = "zfs_fs";
-          options = {
-            canmount = "noauto";
-            mountpoint = "legacy";
-          };
-        };
-
-        home = {
-          type = "zfs_fs";
+          mountpoint = "/persist";
           options = {
             canmount = "noauto";
             mountpoint = "legacy";
@@ -130,34 +106,83 @@
       };
 
       datasets = {
-        data = {
+        crypt = {
           type = "zfs_fs";
+          options = {
+            mountpoint = "none";
+            canmount = "off";
+            encryption = "aes-256-gcm";
+            keyformat = "passphrase";
+            keylocation = "prompt";
+          };
+        };
+
+        "crypt/media/movies" = {
+          type = "zfs_fs";
+          mountpoint = "/media/movies";
           options = {
             canmount = "noauto";
             mountpoint = "legacy";
           };
         };
-      };
-    };
 
-    spool = {
-      type = "zpool";
-      options = {
-        ashift = "12";
-        autotrim = "off";
-      };
-      
-      rootFsOptions = {
-        mountpoint = "none";
-        compression = "zstd";
-        atime = "off";
-        xattr = "sa";
-        acltype = "posixacl";
-      };
-
-      datasets = {
-        scratch = {
+        "crypt/media/tv" = {
           type = "zfs_fs";
+          mountpoint = "/media/tv";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/postgresql" = {
+          type = "zfs_fs";
+          mountpoint = "/data/postgresql";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/nextcloud" = {
+          type = "zfs_fs";
+          mountpoint = "/data/nextcloud";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/nextcloud/data" = {
+          type = "zfs_fs";
+          mountpoint = "/data/nextcloud/data";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/vaultwarden" = {
+          type = "zfs_fs";
+          mountpoint = "/data/vaultwarden";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/data/paperless" = {
+          type = "zfs_fs";
+          mountpoint = "/data/paperless";
+          options = {
+            canmount = "noauto";
+            mountpoint = "legacy";
+          };
+        };
+
+        "crypt/incus" = {
+          type = "zfs_fs";
+          mountpoint = "/incus";
           options = {
             canmount = "noauto";
             mountpoint = "legacy";

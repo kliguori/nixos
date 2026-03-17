@@ -1,10 +1,12 @@
-{ inputs, hostName, lib, ... }:
+{ inputs, hostName, ... }:
 {
+  # --- Imports ---
   imports = [
-    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-    ../core 
-    ../../modules 
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
+    ../../modules
     ../../users
+    ../../profiles
   ];
 
   # --- State version ---
@@ -13,32 +15,20 @@
   # --- Networking ---
   networking = {
     hostName = hostName;
-    hostId = "90867c7d";
-    useDHCP = lib.mkDefault true;
-    networkmanager.enable = true;
+    hostId = "5dcafb0a";
   };
-
-  # --- Boot settings ---
-  boot = {
-    kernelParams = [ ];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    supportedFilesystems = [ "btrfs" ];
-  };
-
-  # --- Hardware ---
-  hardware.enableAllFirmware = true;
 
   # --- System options ---
   systemOptions = {
-    impermanence.enable = true;
-    desktop.enable = true;    
-    services = {
-      ssh.enable = true;
-      fstrim.enable = true;
-      tailscale.enable = true;
+    users = [
+      "root"
+      "kevin"
+    ];
+    impermanence.rpool = "rpool/crypt";
+    profiles = [ "laptop" ];
+    hibernate = {
+      enable = true;
+      resumeDevice = "/dev/mapper/cryptswap";
     };
   };
 }

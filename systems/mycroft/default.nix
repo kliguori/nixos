@@ -1,17 +1,16 @@
 {
   hostName,
   inputs,
-  pkgs,
   ...
 }:
 {
   # --- Imports ---
   imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
-    ../../modules
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc
     ../../users
     ../../profiles
+    ../../modules
   ];
 
   # --- State version ---
@@ -20,102 +19,42 @@
   # --- Networking ---
   networking = {
     hostName = hostName;
-    hostId = "b709b6b5";
+    hostId = "d302d58e";
   };
 
-  # --- Sudo w/o password ---
-  security.sudo.wheelNeedsPassword = false;
-
-  # --- Force Wayland to use Intel GPU ---
-  environment.sessionVariables = {
-    WLR_DRM_DEVICES = "/dev/dri/card1"; # card1 is intel card0 nvidia
-  };
-
-  # --- Set profile to "cool" ---
-  systemd.services.set-platform-profile = {
-    description = "Set Dell platform profile to cool";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ''
-        ${pkgs.bash}/bin/bash -c "echo cool > /sys/firmware/acpi/platform_profile"
-      '';
-    };
-  };
-
-  # --- Allow closed lid and screen off ---
-  boot.kernelParams = [
-    "consoleblank=300" # Turn off screen after 5 minutes
-  ];
-
-  services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore"; 
-    HandleLidSwitchDocked = "ignore"; 
+  # --- Extra boot settings ---
+  boot = {
+    kernelModules = [ "sg" ];
   };
 
   # --- System options ---
   systemOptions = {
-    users = [
-      "root"
-      "admin"
+    profiles = [
+      "desktop"
       "printer"
     ];
-    profiles = [
-      "laptop"
-      "server"
+    users = [
+      "root"
+      "kevin"
     ];
     nvidia = {
       enable = true;
-      prime = {
-        enable = true;
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
+      prime.enable = false;
     };
   };
 
   # --- Extra fileSystems ---
   fileSystems = {
-    "/media/movies" = {
-      device = "dpool/crypt/media/movies";
+    "/data" = {
+      device = "dpool/data";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
-    "/media/tv" = {
-      device = "dpool/crypt/media/tv";
+    "/data/scratch" = {
+      device = "spool/scratch";
       fsType = "zfs";
-    };
-
-    "/data/postgresql" = {
-      device = "dpool/crypt/data/postgresql";
-      fsType = "zfs";
-    };
-
-    "/data/nextcloud" = {
-      device = "dpool/crypt/data/nextcloud";
-      fsType = "zfs";
-    };
-
-    "/data/nextcloud/data" = {
-      device = "dpool/crypt/data/nextcloud/data";
-      fsType = "zfs";
-    };
-
-    "/data/vaultwarden" = {
-      device = "dpool/crypt/data/vaultwarden";
-      fsType = "zfs";
-    };
-
-    "/data/paperless" = {
-      device = "dpool/crypt/data/paperless";
-      fsType = "zfs";
-    };
-
-    "/incus" = {
-      device = "dpool/crypt/incus";
-      fsType = "zfs";
+      options = [ "nofail" ];
     };
   };
 }
