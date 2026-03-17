@@ -39,7 +39,12 @@ in
       virt-viewer
       qemu
       makemkv
-      handbrake
+      (handbrake.overrideAttrs (old: {
+        postFixup = (old.postFixup or "") + ''
+          wrapProgram $out/bin/ghb \
+            --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
+        '';
+      }))
       samba
     ];
   };
