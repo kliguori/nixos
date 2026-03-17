@@ -28,7 +28,7 @@
           };
         };
       };
-      ruff-lsp.enable = true;
+      ruff_lsp.enable = true;
       ruff.enable = true;
       pyright.enable = true;
       clangd.enable = true;
